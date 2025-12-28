@@ -1,0 +1,37 @@
+{
+  "name": "@chrome-stats/app-pass-sdk",
+  "version": "1.0.0",
+  "description": "SDK for Chrome Stats App Pass integration",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "chrome-stats",
+    "app-pass",
+    "sdk",
+    "chrome-extension"
+  ],
+  "author": "Chrome Stats",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chrome": "^0.0.260",
+    "tsup": "^8.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
