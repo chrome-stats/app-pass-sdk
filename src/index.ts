@@ -1,5 +1,5 @@
 // App Pass SDK
-const urlBase = 'http://localhost:8080';
+const urlBase = 'https://chrome-stats.com';
 
 export interface AppPassResponse {
   /**
@@ -47,7 +47,7 @@ async function checkStatus(): Promise<AppPassResponse> {
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     try {
       const headers: HeadersInit = {
-        extensionId: chrome.runtime.id,
+        extensionid: chrome.runtime.id,
         'Content-Type': 'application/json'
       };
       const response = await fetch(`${urlBase}/api/check-app-pass`, {
