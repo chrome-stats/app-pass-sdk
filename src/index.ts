@@ -96,3 +96,13 @@ export async function activateAppPass(): Promise<AppPassResponse> {
   });
   return res;
 }
+
+/**
+ * Opens the App Pass management page.
+ * @returns Promise<void>
+ */
+export async function manageAppPass(): Promise<void> {
+  await chrome.tabs.create({
+    url: `${urlBase}/apppass/mypass`
+  });
+}
