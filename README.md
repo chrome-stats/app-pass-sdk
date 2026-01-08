@@ -37,6 +37,16 @@ import { activateAppPass } from '@chrome-stats/app-pass-sdk';
 const response = await activateAppPass();
 ```
 
+### Manage App Pass
+
+To open the App Pass management page:
+
+```typescript
+import { manageAppPass } from '@chrome-stats/app-pass-sdk';
+
+await manageAppPass();
+```
+
 ### Server-Side Verification
 
 If you need to verify the App Pass status on your server (e.g., to unlock premium features in your backend), follow these steps:
