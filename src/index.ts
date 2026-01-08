@@ -33,15 +33,6 @@ export interface AppPassResponse {
 
 // Function to check app pass status via API
 async function checkStatus(): Promise<AppPassResponse> {
-  // Check if user has granted the host permission
-  const hasPermission = await chrome.permissions.contains({
-    origins: [`${urlBase}/`]
-  });
-
-  if (!hasPermission) {
-    console.log('App Pass not activated - skipping status check');
-    return { status: 'no_perm', message: 'Permission denied' };
-  }
   const maxAttempts = 3;
 
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
@@ -56,7 +47,7 @@ async function checkStatus(): Promise<AppPassResponse> {
         credentials: 'include' // Include cookies for authentication
       });
 
-      if (response.ok) {
+      if (response.ok || (response.status < 500 && response.status >= 400)) {
         const data = await response.json();
         console.log('App pass status response:', data);
         return {
@@ -92,12 +83,6 @@ async function checkStatus(): Promise<AppPassResponse> {
  * @returns Promise<AppPassResponse>
  */
 export async function checkAppPass(): Promise<AppPassResponse> {
-  const hasPermission = await chrome.permissions.contains({
-    origins: [`${urlBase}/`]
-  });
-  if (!hasPermission) {
-    return { status: 'no_perm', message: 'Permission denied' };
-  }
   const res = await checkStatus();
   return res;
 }
@@ -108,15 +93,9 @@ export async function checkAppPass(): Promise<AppPassResponse> {
  * @returns Promise<AppPassResponse>
  */
 export async function activateAppPass(): Promise<AppPassResponse> {
-  const granted = await chrome.permissions.request({
-    origins: [`${urlBase}/`]
+  const res = await checkStatus();
+  await chrome.tabs.create({
+    url: `${urlBase}/apppass/add/${encodeURIComponent(chrome.runtime.id)}`
   });
-  if (granted) {
-    const res = await checkStatus();
-    await chrome.tabs.create({
-      url: `${urlBase}/apppass/add/${encodeURIComponent(chrome.runtime.id)}`
-    });
-    return res;
-  }
-  return { status: 'no_perm', message: 'Permission denied' };
+  return res;
 }
