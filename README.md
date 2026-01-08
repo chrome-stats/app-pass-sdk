@@ -72,15 +72,3 @@ if (data.status === 'ok') {
   console.log('User is verified:', data.email);
 }
 ```
-
-## Permissions
-
-Ensure your `manifest.json` includes the necessary permissions:
-
-```json
-{
-  "optional_host_permissions": [
-    "https://chrome-stats.com/"
-  ]
-}
-```

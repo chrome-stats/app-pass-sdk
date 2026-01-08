@@ -6,11 +6,8 @@ export interface AppPassResponse {
    * The status of the App Pass check.
    * Possible values:
    * - 'ok': App Pass is valid and active.
-   * - 'no_perm': Host permission for chrome-stats.com is missing.
    * - 'no_apppass': User does not have an active App Pass subscription.
-   * - 'ext_inactive': Extension is not part of App Pass or not active for this user.
-   * - 'err': Connection error or server failure.
-   * - 'unknown_error': Unexpected response format.
+   * - 'unknown_error': Connection error or server failure.
    */
   status: string;
 
@@ -74,7 +71,7 @@ async function checkStatus(): Promise<AppPassResponse> {
   }
 
   console.error('App pass status check failed after all retry attempts');
-  return { status: 'err', message: 'Failed to connect to server' };
+  return { status: 'unknown_error', message: 'Failed to connect to server' };
 }
 
 /**
