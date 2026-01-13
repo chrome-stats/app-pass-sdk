@@ -1,5 +1,5 @@
 // App Pass SDK
-const urlBase = 'https://chrome-stats.com';
+const urlBase = 'https://joinapppass.com';
 
 export interface AppPassResponse {
   /**
@@ -92,7 +92,7 @@ export async function checkAppPass(): Promise<AppPassResponse> {
 export async function activateAppPass(): Promise<AppPassResponse> {
   const res = await checkStatus();
   await chrome.tabs.create({
-    url: `${urlBase}/apppass/add/${encodeURIComponent(chrome.runtime.id)}`
+    url: `${urlBase}/add/${encodeURIComponent(chrome.runtime.id)}`
   });
   return res;
 }
@@ -103,6 +103,6 @@ export async function activateAppPass(): Promise<AppPassResponse> {
  */
 export async function manageAppPass(): Promise<void> {
   await chrome.tabs.create({
-    url: `${urlBase}/apppass/mypass`
+    url: `${urlBase}/mypass`
   });
 }
