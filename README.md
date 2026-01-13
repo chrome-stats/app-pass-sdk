@@ -1,8 +1,8 @@
-# Chrome Stats App Pass SDK
+# App Pass SDK
 
-This SDK facilitates integration with Chrome Stats App Pass for Chrome Extensions.
+This SDK facilitates integration with App Pass for Chrome Extensions.
 It provides methods to check App Pass status and activate App Pass.
-For more information, see https://chrome-stats.com/apppass.
+For more information, see https://joinapppass.com/.
 
 ## Installation
 
@@ -60,9 +60,9 @@ if (response.status === 'ok' && response.appPassToken) {
 }
 ```
 
-2. **Verify Token**: On your server, make a GET request to the Chrome Stats API to validate the token.
+2. **Verify Token**: On your server, make a GET request to the App Pass API to validate the token.
 
-- **Endpoint**: `https://chrome-stats.com/api/check-app-pass`
+- **Endpoint**: `https://joinapppass.com/api/check-app-pass`
 - **Method**: `GET`
 - **Headers**:
   - `app-pass-token`: The token received from the client.
@@ -70,7 +70,7 @@ if (response.status === 'ok' && response.appPassToken) {
 **Example (Node.js/fetch)**:
 
 ```typescript
-const response = await fetch('https://chrome-stats.com/api/check-app-pass', {
+const response = await fetch('https://joinapppass.com/api/check-app-pass', {
   method: 'GET',
   headers: {
     'app-pass-token': receivedAppPassToken
