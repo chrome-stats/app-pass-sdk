@@ -30,7 +30,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/chrome": "^0.0.260",
-    "tsup": "^8.0.0"
+    "tsup": "^8.5.1"
   },
   "publishConfig": {
     "access": "public"
