@@ -85,10 +85,10 @@ if (data.status === 'ok') {
 
 ## Example Extension
 
-A full working example Chrome extension is available in the [`example/`](./example) directory. It demonstrates:
+A full working example Chrome extension is available in the [`example/`](https://github.com/chrome-stats/app-pass-sdk/tree/main/example) directory. It demonstrates:
 
 - Checking App Pass status in a popup
 - Activating and managing App Pass subscriptions
 - Using the SDK in a background service worker
 
-See the [example README](./example/README.md) for setup instructions.
+See the [example README](https://github.com/chrome-stats/app-pass-sdk/blob/main/example/README.md) for setup instructions.
