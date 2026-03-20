@@ -9,17 +9,12 @@
 
   async function checkStatus() {
     status = 'loading';
-    try {
-      const response = await checkAppPass();
-      // Only 'ok' means active, everything else (error, no_apppass) is inactive
-      if (response.status === 'ok') {
-        email = response.email || 'Premium User';
-        status = 'active';
-      } else {
-        status = 'inactive';
-      }
-    } catch (err) {
-      console.error('Failed to check App Pass:', err);
+    const response = await checkAppPass();
+    // Only 'ok' means active, everything else (error, no_apppass) is inactive
+    if (response.status === 'ok') {
+      email = response.email || 'Premium User';
+      status = 'active';
+    } else {
       status = 'inactive';
     }
   }
