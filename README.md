@@ -82,3 +82,13 @@ if (data.status === 'ok') {
   console.log('User is verified:', data.email);
 }
 ```
+
+## Example Extension
+
+A full working example Chrome extension is available in the [`example/`](./example) directory. It demonstrates:
+
+- Checking App Pass status in a popup
+- Activating and managing App Pass subscriptions
+- Using the SDK in a background service worker
+
+See the [example README](./example/README.md) for setup instructions.

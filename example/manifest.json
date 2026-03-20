@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "App Pass SDK Example",
+  "version": "1.0.0",
+  "description": "Example Chrome extension demonstrating App Pass SDK integration",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "App Pass Example"
+  },
+  "permissions": ["activeTab"]
+}
