@@ -35,14 +35,31 @@ export interface AppPassResponse {
   retryAfterSeconds?: number;
 }
 
+export interface AppPassOptions {
+  /**
+   * Extension identifier registered in the App Pass catalog.
+   *
+   * Omit this for normal store installs, where `chrome.runtime.id` is the
+   * published identifier. Pass the published identifier for the current
+   * browser when running an unpacked/development build whose runtime ID is
+   * temporary or otherwise differs from the catalog entry.
+   */
+  extensionId?: string;
+}
+
+function resolveExtensionId(options?: AppPassOptions): string {
+  const extensionId = options?.extensionId?.trim();
+  return extensionId || chrome.runtime.id;
+}
+
 // Function to check app pass status via API
-async function checkStatus(): Promise<AppPassResponse> {
+async function checkStatus(extensionId: string): Promise<AppPassResponse> {
   const maxAttempts = 3;
 
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     try {
       const headers: HeadersInit = {
-        extensionid: chrome.runtime.id,
+        extensionid: extensionId,
         'Content-Type': 'application/json'
       };
       const response = await fetch(`${urlBase}/api/check-app-pass`, {
@@ -109,22 +126,28 @@ async function checkStatus(): Promise<AppPassResponse> {
 /**
  * Checks the status of the App Pass.
  * Verifies permissions and calls the server to check validity.
+ * @param options Optional App Pass catalog identity override. Omit for normal
+ * store installs; pass the published ID for unpacked builds with a temporary
+ * runtime ID.
  * @returns Promise<AppPassResponse>
  */
-export async function checkAppPass(): Promise<AppPassResponse> {
-  const res = await checkStatus();
+export async function checkAppPass(options?: AppPassOptions): Promise<AppPassResponse> {
+  const res = await checkStatus(resolveExtensionId(options));
   return res;
 }
 
 /**
  * Initiates the App Pass activation flow.
  * Requests necessary permissions and opens the activation page.
+ * @param options Optional App Pass catalog identity override. Use the same
+ * value passed to `checkAppPass()`.
  * @returns Promise<AppPassResponse>
  */
-export async function activateAppPass(): Promise<AppPassResponse> {
-  const res = await checkStatus();
+export async function activateAppPass(options?: AppPassOptions): Promise<AppPassResponse> {
+  const extensionId = resolveExtensionId(options);
+  const res = await checkStatus(extensionId);
   await chrome.tabs.create({
-    url: `${urlBase}/add/${encodeURIComponent(chrome.runtime.id)}`
+    url: `${urlBase}/add/${encodeURIComponent(extensionId)}`
   });
   return res;
 }

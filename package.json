@@ -1,6 +1,6 @@
 {
   "name": "@chrome-stats/app-pass-sdk",
-  "version": "2.0.4",
+  "version": "2.1.0",
   "description": "SDK for App Pass integration",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -21,6 +21,7 @@
   ],
   "scripts": {
     "build": "tsup src/index.ts --format cjs,esm --dts --clean",
+    "test": "npm run build && node --test test/*.test.mjs",
     "deploy": "npm publish",
     "prepublishOnly": "npm run build"
   },
