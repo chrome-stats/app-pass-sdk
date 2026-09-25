@@ -78,7 +78,6 @@ async function checkStatus(): Promise<AppPassResponse> {
             message: 'Unexpected response from server'
           };
         }
-        console.log('App pass status response:', data);
         return {
           status: data.status || 'unknown_error',
           message: data.message,
