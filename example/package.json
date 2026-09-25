@@ -8,7 +8,7 @@
     "build": "vite build"
   },
   "dependencies": {
-    "@chrome-stats/app-pass-sdk": "^2.0.0"
+    "@chrome-stats/app-pass-sdk": "^2.0.5"
   },
   "devDependencies": {
     "@crxjs/vite-plugin": "^2.3.0",
